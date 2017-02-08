@@ -51,8 +51,12 @@ def makeWebhookResult(req):
         }   
     }
     
-    speech = ("The cost of shipping to %s is %s euros." % (zone, cost[zone]["price"]) if cost[zone]["available"]
-              else "The cost of shipping is not available to %s" % (zone))
+    #speech = ("The cost of shipping to %s is %s euros." % (zone, cost[zone]["price"]) if cost[zone]["available"]
+    #          else "The cost of shipping is not available to %s" % (zone))
+    
+    if cost[zone]["available"] 
+     speech = ("You are lucky, the $product is available in %s." (zone)) 
+    else speech = ("Sorry, the $product is not available in %s." (zone))            
 
     print("Response:")
     print(speech)
