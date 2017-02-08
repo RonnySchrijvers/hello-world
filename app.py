@@ -33,6 +33,7 @@ def makeWebhookResult(req):
     result = req.get("result")
     parameters = result.get("parameters")
     zone = parameters.get("Country")
+    prod = parameters.get("Product")
 
     
     # Voorbeeld met alle mogelijkheden met prijs inbegrepen
@@ -51,8 +52,8 @@ def makeWebhookResult(req):
         }   
     }
     
-    speech = ("The $product is available in % for the price of %s euros." % (zone, cost[zone]["price"]) if cost[zone]["available"]
-              else "Sorry, The $product is not available in %s" % (zone))
+    speech = ("The %s is available in %s for the price of %s euros." % (prod, zone, cost[zone]["price"]) if cost[zone]["available"]
+              else "Sorry, The %s is not available in %s" % (prod, zone))
     
     #if cost[zone]["available"]:
     # speech = ("You are lucky, the $product is available in %s." (zone)) 
