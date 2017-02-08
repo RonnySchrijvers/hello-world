@@ -45,7 +45,7 @@ def makeWebhookResult(req):
         "available": False,
         "price": 100
         },
-        'Asia': {
+        'Belgium': {
         "available": True,
         "price": 500
         }   
