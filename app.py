@@ -34,9 +34,25 @@ def makeWebhookResult(req):
     parameters = result.get("parameters")
     zone = parameters.get("Country")
 
-    cost = {'Algeria':1, 'Andorra':0, 'Angola':300, 'Asia':400, 'Africa':500}
-
-    speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
+    
+    # Voorbeeld met alle mogelijkheden met prijs inbegrepen
+    cost = {
+        'Algeria': {
+        "available": True,
+        "price": 100
+        },
+        'Andorra': {
+        "available": False,
+        "price": 100
+        },
+        'Asia': {
+        "available": True,
+        "price": 500
+        }   
+    }
+    
+    speech = ("The cost of shipping to %s is %s euros." % (zone, cost[zone]["price"]) if cost[zone]["available"]
+              else "The cost of shipping is not available to %s" % (zone))
 
     print("Response:")
     print(speech)
