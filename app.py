@@ -7,6 +7,7 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
+import pandas as pd
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -27,8 +28,20 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def handle_share_availability(zone, prod):
+    pass
+
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "Share_Availability":
+    action = req.get("result").get("action")
+    if action == "Share_Availability":
+        parameters = result.get("parameters")
+        handle_share_availability(parameters.get("Country"), parameters.get("Product"))
+    elif action == "":
+        pass
+    else:
+        return {}
+       
+    if  != "Share_Availability":
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
@@ -37,7 +50,11 @@ def makeWebhookResult(req):
 
     
     # Voorbeeld met alle mogelijkheden met prijs inbegrepen
-    cost = {
+    df = pd.read_csv(fname)
+    with open(fname, "r") as file:
+        cost = eval(" ".join(line.strip() for line in file))
+    
+    {
         'Algeria': {
         "available": True,
         "price": 100
@@ -51,6 +68,11 @@ def makeWebhookResult(req):
         "price": 500
         }   
     }
+    
+    if cost[zone]["available"]:
+        speech = "The %s is available in %s for the price of %s euros." % (prod, zone, cost[zone]["price"]
+    else:
+        speech = "Sorry, The %s is not available in %s" % (prod, zone)
     
     speech = ("The %s is available in %s for the price of %s euros." % (prod, zone, cost[zone]["price"]) if cost[zone]["available"]
               else "Sorry, The %s is not available in %s" % (prod, zone))
